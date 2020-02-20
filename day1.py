@@ -4,6 +4,7 @@ from pymongo import MongoClient as MC
 myclient = MC("mongodb://localhost:27017")
 mydb = myclient["mydatabase"]
 mycol = mydb["customers"]
+
 mydict = {"name": "John","address": "Highway 37"}
 x = mycol.insert_one(mydict)
 print(x)
@@ -49,3 +50,30 @@ mylist2 = [
 
 x2 = mycol.insert_many(mylist2)
 print(x2.inserted_ids)
+
+item = mycol.find_one()
+print(item)
+
+
+for i in mycol.find():
+    print(i)
+
+for j in mycol.find({}, {"_id":0, "name": 1, "address": 1}):
+    print(j)
+
+
+myquery = {"address": "Park Lane 38"}
+mydoc = mycol.find(myquery)
+for i in mydoc:
+    print("Park Lane query respones: ", i)
+
+myquery2 = {"address": {"$gt":"S"}}
+mydoc2 = mycol.find(myquery2)
+for i in mydoc2:
+    print("Address greater than S: ", i)
+
+
+myquery3 = { "address": { "$regex": "^S" } }
+mydoc3 = mycol.find(myquery3)
+for x in mydoc3:
+    print(x)
