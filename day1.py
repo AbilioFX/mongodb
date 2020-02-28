@@ -4,7 +4,7 @@ from pymongo import MongoClient as MC
 myclient = MC("mongodb://localhost:27017")
 mydb = myclient["mydatabase"]
 mycol = mydb["customers"]
-
+"""
 mydict = {"name": "John","address": "Highway 37"}
 x = mycol.insert_one(mydict)
 print(x)
@@ -13,7 +13,7 @@ insemydict["name"] = "Peter"
 insemydict["address"] = "Lowerstreet 27"
 y = mycol.insert_one(insemydict)
 print(y.inserted_id)
-
+"""
 mylist = [
     { "name": "Amy", "address": "Apple st 652"},
     { "name": "Hannah", "address": "Mountain 21"},
@@ -29,6 +29,10 @@ mylist = [
     { "name": "Viola", "address": "Sideway 1633"}
 ]
 newx = mycol.insert_many(mylist)
+newy = mycol.find()
+for i in newy:
+    print("newx:", i)
+"""
 print(newx.inserted_ids)
 
 mylist2 = [
@@ -77,3 +81,4 @@ myquery3 = { "address": { "$regex": "^S" } }
 mydoc3 = mycol.find(myquery3)
 for x in mydoc3:
     print(x)
+"""
